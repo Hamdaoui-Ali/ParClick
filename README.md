@@ -135,3 +135,6 @@ MIT – see [LICENSE](LICENSE).
 
 ---
 Built with Django 5.2, Bootstrap 5, and a lot of green buttons.
+
+<img width="709" height="515" alt="Screenshot 2025-09-16 233144" src="https://github.com/user-attachments/assets/0f8be874-006f-426c-a502-7e5c50cb71f8" />
+
