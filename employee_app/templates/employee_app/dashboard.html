@@ -1,0 +1,150 @@
+{% extends 'employee_app/base_employee.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<div class="container mt-4">
+    <div class="row">
+        <!-- Today's Earnings -->
+        <div class="col-md-3 mb-3">
+            <div class="card shadow-sm border-start-success py-2">
+                <div class="card-body d-flex align-items-center">
+                    <div class="me-3">
+                        <i class="fas fa-dollar-sign fa-2x text-success"></i>
+                    </div>
+                    <div>
+                        <div class="text-success text-uppercase fw-bold small">Today's Earnings</div>
+                        <div class="h5 fw-bold text-dark">{{ today_earnings }}MAD</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Annual Earnings -->
+        <div class="col-md-3 mb-3">
+            <div class="card shadow-sm border-start-success py-2">
+                <div class="card-body d-flex align-items-center">
+                    <div class="me-3">
+                        <i class="fas fa-dollar-sign fa-2x text-success"></i>
+                    </div>
+                    <div>
+                        <div class="text-success text-uppercase fw-bold small">Annual Earnings</div>
+                        <div class="h5 fw-bold text-dark">{{ annual_earnings }}MAD</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Current Reservations -->
+        <div class="col-md-3 mb-3">
+            <div class="card shadow-sm border-start-info py-2">
+                <div class="card-body d-flex align-items-center">
+                    <div class="me-3">
+                        <i class="fas fa-car fa-2x text-info"></i>
+                    </div>
+                    <div>
+                        <div class="text-info text-uppercase fw-bold small">Current Reservations</div>
+                        <div class="h5 fw-bold text-dark">{{ current_reservations }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- History Records -->
+        <div class="col-md-3 mb-3">
+            <div class="card shadow-sm border-start-warning py-2">
+                <div class="card-body d-flex align-items-center">
+                    <div class="me-3">
+                        <i class="fas fa-clock-rotate-left fa-2x text-warning"></i>
+                    </div>
+                    <div>
+                        <div class="text-warning text-uppercase fw-bold small">History Records</div>
+                        <div class="h5 fw-bold text-dark">{{ total_history }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="row">
+        <!-- Line Chart -->
+        <div class="col-md-8">
+            <div class="card shadow mb-4">
+                <div class="card-header bg-success text-white">
+                    <h6 class="m-0 fw-bold">Earnings Overview</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="earningsLineChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pie Chart -->
+        <div class="col-md-4">
+            <div class="card shadow mb-4">
+                <div class="card-header bg-success text-white">
+                    <h6 class="m-0 fw-bold">Vehicle Distribution</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="vehiclePieChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Line chart
+    new Chart(document.getElementById('earningsLineChart'), {
+        type: 'line',
+        data: {
+            labels: {{ earnings_dates| safe }},
+        datasets: [{
+            label: 'Earnings',
+            data: {{ earnings_amounts| safe }},
+        borderColor: '#28a745',
+        backgroundColor: 'rgba(40, 167, 69, 0.1)',
+        borderWidth: 2,
+        tension: 0.4,
+        fill: true,
+        pointBackgroundColor: '#28a745'
+            }]
+        },
+        options: {
+        responsive: true,
+        plugins: {
+            legend: { display: false }
+        },
+        scales: {
+            y: { beginAtZero: true }
+        }
+    }
+    });
+
+    // Pie chart
+    new Chart(document.getElementById('vehiclePieChart'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Car', 'Motorcycle'],
+            datasets: [{
+                data: [{{ car_count }}, {{ motorcycle_count }}],
+        backgroundColor: ['#104900', '#238828'],
+        hoverOffset: 8
+    }]
+        },
+        options: {
+        responsive: true,
+        cutout: '65%',
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: { color: '#333' }
+            }
+        }
+    }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends 'employee_app/base_employee.html' %}
+
+{% block content %}
+{% load static %}
+
+<style>
+    .reservation-form-wrapper {
+        max-width: 700px;
+        margin: 40px auto;
+        background-color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+    }
+
+    .reservation-form-wrapper h2 {
+        color: #28a745;
+        font-weight: bold;
+        margin-bottom: 25px;
+        text-align: center;
+    }
+
+    .reservation-form-wrapper form p {
+        margin-bottom: 20px;
+    }
+
+    .reservation-form-wrapper form label {
+        font-weight: 600;
+        color: #444;
+        margin-bottom: 6px;
+        display: block;
+    }
+
+    .reservation-form-wrapper form input,
+    .reservation-form-wrapper form select,
+    .reservation-form-wrapper form textarea {
+        width: 100%;
+        padding: 10px 14px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 1em;
+    }
+
+    .form-actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+    }
+
+    .form-actions .btn {
+        padding: 10px 25px;
+        font-size: 1em;
+        border-radius: 6px;
+    }
+</style>
+
+<div class="reservation-form-wrapper">
+    <h2>{{ action }} Reservation</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="form-actions">
+            <button type="submit" class="btn btn-success">{{ action }}</button>
+            <a href="{% url 'reservation_list' %}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

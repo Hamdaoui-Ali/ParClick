@@ -1,0 +1,93 @@
+{% extends 'employee_app/base_employee.html' %}
+
+{% block content %}
+<style>
+    .history-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+    .history-header h2 {
+        color: #28a745;
+        font-weight: bold;
+    }
+
+    .history-summary {
+        background-color: #e9f7ef;
+        border-left: 6px solid #28a745;
+        padding: 15px 20px;
+        border-radius: 8px;
+        color: #155724;
+        font-weight: 500;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .table th,
+    .table td {
+        vertical-align: middle !important;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #f5fdf6;
+    }
+</style>
+
+<div class="container mt-4">
+    <div class="history-header">
+        <h2>History of Reservations</h2>
+        <div class="history-summary">
+            <i class="fas fa-clock me-2"></i> Total past reservations: <strong>{{ total_past }}</strong>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered text-center align-middle">
+            <thead class="table-success">
+                <tr>
+                    <th>Ticket ID</th>
+                    <th>Place #</th>
+                    <th>Vehicle Type</th>
+                    <th>Client CIN</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Duration (hrs)</th>
+                    <th>Payment</th>
+                    <th>Price (DH)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for h in histories %}
+                <tr>
+                    <td><span class="badge bg-success">{{ h.ticket_id }}</span></td>
+                    <td>{{ h.place_number }}</td>
+                    <td>
+                        {% if h.vehicule_type == "car" %}
+                        <i class="fas fa-car text-primary"></i> Car
+                        {% else %}
+                        <i class="fas fa-motorcycle text-info"></i> Motorcycle
+                        {% endif %}
+                    </td>
+                    <td>{{ h.client_cin }}</td>
+                    <td>{{ h.start_time }}</td>
+                    <td>{{ h.end_time }}</td>
+                    <td>{{ h.duration }}</td>
+                    <td>
+                        <span class="badge bg-light text-dark">{{ h.payment_type }}</span>
+                    </td>
+                    <td><strong>{{ h.price }}</strong></td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="9" class="text-center text-muted py-4">No history available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- FontAwesome (if not already loaded) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+{% endblock %}

@@ -1,0 +1,116 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f9f9f9;
+        }
+
+        .login-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .login-image {
+            flex: 0.8;
+            background: url("{% static 'employee_app/images/login.jpg' %}") no-repeat center center;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-color: #fff;
+        }
+
+        .login-form {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            padding: 60px 40px;
+        }
+
+        .login-form form {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+
+        .welcome-msg {
+            font-size: 1rem;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1050;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Notification Toast -->
+    <div class="toast-container">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="toast align-items-center text-bg-danger border-0 show" role="alert" id="loginToast">
+            <div class="d-flex">
+                <div class="toast-body">
+                    {{ message }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+
+    <!-- Login Layout -->
+    <div class="login-container">
+        <div class="login-image"></div>
+        <div class="login-form">
+            <form method="POST" autocomplete="off">
+                {% csrf_token %}
+                <div class="login-title">Employee Login</div>
+                <div class="welcome-msg">We're happy to see you again, dear employee! Please log in below.</div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="employee@example.com"
+                        required value="">
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required value="">
+                </div>
+
+                <button type="submit" class="btn btn-success w-100">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        setTimeout(() => {
+            const toast = document.getElementById('loginToast');
+            if (toast) {
+                toast.classList.remove('show');
+            }
+        }, 2000);
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,114 @@
+{% extends 'employee_app/base_employee.html' %}
+{% load tz %}
+{% now "UTC" as now %}
+{% block content %}
+<div class="container mt-4">
+    {% if messages %}
+    <div id="message-box" style="
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: rgba(220, 53, 69, 0.9);  /* Red for error */
+        color: white;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-size: 1.1em;
+        z-index: 9999;
+        animation: fadeOut 2s ease-in-out forwards;
+        animation-delay: 2s;
+    ">
+        {% for message in messages %}
+        {{ message }}
+        {% endfor %}
+    </div>
+
+    <style>
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+    </style>
+    {% endif %}
+
+    <div class="d-flex justify-content-end mb-3">
+        <form method="post" action="{% url 'validate_all_expired' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success">
+                <i class="fas fa-check-double"></i> Validate All Expired
+            </button>
+        </form>
+    </div>
+
+
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered align-middle text-center">
+            <thead class="table-success">
+                <tr>
+                    <th>Ticket ID</th>
+                    <th>Place</th>
+                    <th>Vehicle Type</th>
+                    <th>Client CIN</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Duration</th>
+                    <th>Payment</th>
+                    <th>Price</th>
+                    <th colspan="2">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reservation in reservations %}
+                <tr>
+                    <td><span class="badge bg-success">{{ reservation.ticket_id }}</span></td>
+                    <td>{{ reservation.place.number }}</td>
+                    <td>{{ reservation.get_vehicule_type_display }}</td>
+                    <td>{{ reservation.client_cin }}</td>
+                    <td>{{ reservation.start_time }}</td>
+                    <td>{{ reservation.end_time|default:"-" }}</td>
+                    <td>{{ reservation.duration|default:"-" }}</td>
+                    <td>{{ reservation.get_payment_type_display|default:"-" }}</td>
+                    <td>${{ reservation.price }}</td>
+
+                    <!-- Actions -->
+                    <td>
+                        <div class="d-flex flex-column gap-2">
+                            <a href="{% url 'edit_reservation' reservation.id %}"
+                                class="btn btn-sm btn-outline-primary w-100">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
+                            <a href="{% url 'delete_reservation' reservation.id %}"
+                                class="btn btn-sm btn-outline-danger w-100"
+                                onclick="return confirm('Are you sure you want to delete this reservation?');">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </a>
+                        </div>
+                    </td>
+
+                    <!-- Validate -->
+                    <td>
+                        <div class="d-flex flex-column gap-2">
+                            <form method="post" action="{% url 'validate_reservation' reservation.id %}">
+                                {% csrf_token %}
+                                <button class="btn btn-outline-success btn-sm w-100" type="submit">
+                                    <i class="fas fa-check-circle"></i> Validate
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="11" class="text-muted text-center py-3">No reservations available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- FontAwesome (if not already included in base template) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+{% endblock %}
