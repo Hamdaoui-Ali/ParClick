@@ -1,0 +1,49 @@
+{% extends 'client_app/base_client.html' %}
+
+{% block title %}My Reservations{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">🅿️ My Reservations</h2>
+
+    {% if reservations %}
+    <table class="table table-striped table-bordered">
+        <thead class="table-success">
+            <tr>
+                <th>#</th>
+                <th>Ticket ID</th>
+                <th>Parking Spot</th>
+                <th>Vehicle</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Duration</th>
+                <th>Price</th>
+                <th>Payment</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in reservations %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ r.ticket_id }}</td>
+                <td>{{ r.place.number }}</td>
+                <td>{{ r.get_vehicule_type_display }}</td>
+                <td>{{ r.start_time|date:"Y-m-d H:i" }}</td>
+                <td>{{ r.end_time|date:"Y-m-d H:i" }}</td>
+                <td>{{ r.duration }} hrs</td>
+                <td>{{ r.price }}MAD</td>
+                <td>{{ r.get_payment_type_display }}</td>
+                <td>
+                    <a class="btn btn-danger btn-sm" href="{% url 'cancel_reservation' r.id %}"
+                        onclick="return confirm('Are you sure you want to cancel this reservation?');">Cancel</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="alert alert-info">No reservations found.</p>
+    {% endif %}
+</div>
+{% endblock %}

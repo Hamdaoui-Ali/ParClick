@@ -1,0 +1,227 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Client Login / Register</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            background: linear-gradient(to right, #f1fdf5, #e4f7ec);
+            font-family: 'Segoe UI', sans-serif;
+            padding: 50px;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+        }
+
+        .col-form-label {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .emoji-label {
+            margin-right: 5px;
+        }
+
+
+        .container {
+            max-width: 560px;
+            margin: auto;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 0 22px rgba(0, 0, 0, 0.07);
+            overflow: hidden;
+            transition: all 0.3s ease-in-out;
+        }
+
+        h2 {
+            text-align: center;
+            color: #28a745;
+            margin: 30px 0 10px;
+            font-weight: 700;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #d2e3dc;
+        }
+
+        .tabs div {
+            flex: 1;
+            padding: 14px;
+            text-align: center;
+            background: #f6fbf8;
+            color: #28a745;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .tabs .active {
+            background: #eafaf0;
+            border-bottom: 3px solid #28a745;
+            color: #155724;
+        }
+
+        .form-section {
+            display: none;
+            padding: 30px 35px 40px 35px;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            font-weight: 500;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .form-control {
+            padding: 12px 15px;
+            border-radius: 10px;
+            border: 1px solid #ced4da;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: #28a745;
+            box-shadow: none;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            font-weight: bold;
+            padding: 13px 20px;
+            border: none;
+            border-radius: 10px;
+            width: 100%;
+            transition: background 0.3s;
+            font-size: 1.1rem;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .form-text {
+            font-size: 14px;
+            color: #6c757d;
+        }
+
+        .alert {
+            border-radius: 8px;
+        }
+
+        .emoji-label {
+            font-size: 1.1em;
+            margin-right: 5px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>🚗 Welcome to ParClick</h2>
+
+        <div class="tabs">
+            <div id="loginTab" class="active">🔐 Login</div>
+            <div id="registerTab">📝 Register</div>
+        </div>
+
+        <!-- Login Form -->
+        <div id="loginForm" class="form-section active">
+            <form method="POST" autocomplete="off">
+                {% csrf_token %}
+                {% for field in login_form %}
+                <div class="form-group row align-items-center mb-4">
+                    <label for="{{ field.id_for_label }}" class="col-sm-3 col-form-label text-end pe-3">
+                        <span class="emoji-label"></span> {{ field.label }}
+                    </label>
+                    <div class="col-sm-9">
+                        {{ field }}
+                        {% if field.errors %}
+                        <div class="text-danger small mt-1">{{ field.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+                <button type="submit" name="login_submit">🚪 Log In</button>
+            </form>
+        </div>
+
+
+        <!-- Register Form -->
+        <div id="registerForm" class="form-section">
+            <form method="POST" autocomplete="off">
+                {% csrf_token %}
+                {% for field in register_form %}
+                <div class="form-group row align-items-center mb-4">
+                    <label for="{{ field.id_for_label }}" class="col-sm-3 col-form-label text-end pe-3">
+                        <span class="emoji-label"></span> {{ field.label }}
+                    </label>
+                    <div class="col-sm-9">
+                        {{ field }}
+                        {% if field.errors %}
+                        <div class="text-danger small mt-1">{{ field.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+                <button type="submit" name="register_submit">✅ Sign Up</button>
+            </form>
+        </div>
+
+    </div>
+
+    <script>
+        const loginTab = document.getElementById('loginTab');
+        const registerTab = document.getElementById('registerTab');
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+
+        loginTab.onclick = () => {
+            loginForm.classList.add('active');
+            registerForm.classList.remove('active');
+            loginTab.classList.add('active');
+            registerTab.classList.remove('active');
+        };
+
+        registerTab.onclick = () => {
+            registerForm.classList.add('active');
+            loginForm.classList.remove('active');
+            registerTab.classList.add('active');
+            loginTab.classList.remove('active');
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

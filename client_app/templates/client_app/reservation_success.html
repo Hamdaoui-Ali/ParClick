@@ -1,0 +1,12 @@
+{% extends 'client_app/base_client.html' %}
+
+{% block title %}Reservation Success{% endblock %}
+
+{% block content %}
+<div class="container mt-5 text-center">
+    <h2 class="text-success">🎉 Reservation Confirmed!</h2>
+    <p>Your parking spot has been successfully booked.</p>
+    <a class="btn btn-primary" href="{% url 'home' %}">Back to Home</a>
+    <a href="{% url 'download_ticket' %}" class="btn btn-success">Download Your Ticket 🎫</a>
+</div>
+{% endblock %}

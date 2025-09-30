@@ -1,0 +1,80 @@
+<!-- client_app/templates/client_app/book_reservation.html -->
+
+{% extends 'client_app/base_client.html' %}
+
+{% block title %}Book Reservation{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="reservation-card shadow-sm p-4">
+                <h2 class="text-center mb-4 text-green">🚗 Book Your Parking</h2>
+                <p class="text-center text-muted mb-4">
+                    Reserve your parking spot now — quick, easy, and secure.
+                </p>
+
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-section">
+                        {{ form.as_p }}
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary-green px-5 py-2 mt-3">Confirm Booking</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Custom Styles -->
+<style>
+    body {
+        background-color: #ffffff;
+        color: #2d3e52;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .reservation-card {
+        background-color: #f9fdfc;
+        border: 1px solid #e0f2ee;
+        border-radius: 12px;
+    }
+
+    .text-green {
+        color: #3f704d;
+    }
+
+    .btn-primary-green {
+        background-color: #13b298;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: 0.3s ease-in-out;
+    }
+
+    .btn-primary-green:hover {
+        background-color: #0e8e7b;
+    }
+
+    input,
+    select,
+    textarea {
+        border-radius: 8px !important;
+        border: 1px solid #cbd5ed !important;
+        padding: 10px !important;
+        font-size: 1rem;
+    }
+
+    label {
+        font-weight: 500;
+        color: #2d3e52;
+    }
+
+    .form-section p {
+        margin-bottom: 1rem;
+    }
+</style>
+{% endblock %}

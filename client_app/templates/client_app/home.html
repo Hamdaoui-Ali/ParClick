@@ -1,0 +1,114 @@
+<!-- templates/client_app/home.html -->
+
+{% extends 'client_app/base_client.html' %}
+
+{% block title %}Home - ParClick{% endblock %}
+
+{% block content %}
+<div class="hero-home container-fluid py-5 mb-5">
+    <div class="container text-center">
+        <h1 class="display-5 fw-bold text-green mb-3 animated fadeInDown">
+            Welcome, {{ request.user.full_name }} 👋
+        </h1>
+        <p class="lead text-muted animated fadeIn">
+            Find your perfect parking spot in seconds — fast, secure, and smart. <br>
+            Say goodbye to endless circling and parking stress.
+        </p>
+        <div class="mt-4">
+            <a href="{% url 'book_reservation' %}" class="btn btn-primary-green btn-lg me-3">Reserve Now</a>
+            <a href="{% url 'my_reservations' %}" class="btn btn-outline-success btn-lg">View Reservations</a>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div class="container my-5">
+    <h2 class="text-center text-green mb-4">🛠 Why Choose ParClick?</h2>
+    <div class="row text-center g-4">
+        <div class="col-md-4">
+            <div class="feature-box p-4">
+                <i class="fas fa-map-marked-alt fa-2x text-green mb-3"></i>
+                <h5>Real-Time Availability</h5>
+                <p class="text-muted">Instant updates help you find available spots in real-time, even before arriving.
+                </p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-box p-4">
+                <i class="fas fa-clock fa-2x text-green mb-3"></i>
+                <h5>Save Time & Fuel</h5>
+                <p class="text-muted">No more circling for hours. Reserve your place and drive confidently.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-box p-4">
+                <i class="fas fa-leaf fa-2x text-green mb-3"></i>
+                <h5>Eco-Friendly</h5>
+                <p class="text-muted">By reducing search time, ParClick helps cut down urban pollution and emissions.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Motivation Section -->
+<div class="container text-center my-5">
+    <h2 class="text-green mb-3">🌍 Drive Smart. Park Smarter.</h2>
+    <p class="lead text-muted">
+        Join a new generation of drivers embracing tech for a better city experience. <br>
+        <em>“The future of urban mobility starts with where you park.”</em>
+    </p>
+</div>
+
+<!-- Styling -->
+<style>
+    body {
+        background-color: #ffffff;
+        font-family: 'Poppins', sans-serif;
+        color: #2d3e52;
+    }
+
+    .text-green {
+        color: #3f704d;
+    }
+
+    .btn-primary-green {
+        background-color: #13b298;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: 0.3s ease-in-out;
+    }
+
+    .btn-primary-green:hover {
+        background-color: #0e8e7b;
+    }
+
+    .hero-home {
+        background: linear-gradient(120deg, #e3fff8, #f9fffd);
+        border-radius: 12px;
+    }
+
+    .feature-box {
+        background: #f8fdfc;
+        border: 1px solid #e0f2ee;
+        border-radius: 10px;
+        transition: 0.3s ease;
+    }
+
+    .feature-box:hover {
+        box-shadow: 0 6px 18px rgba(19, 178, 152, 0.2);
+        transform: translateY(-5px);
+    }
+
+    i {
+        color: #3f704d;
+    }
+
+    h5 {
+        font-weight: 600;
+        color: #2d3e52;
+    }
+</style>
+{% endblock %}

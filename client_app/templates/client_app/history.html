@@ -1,0 +1,52 @@
+{% extends 'client_app/base_client.html' %}
+
+{% block title %}My Reservation History{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4 text-success">📋 My Reservation History</h2>
+
+    {% if history %}
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover align-middle">
+            <thead class="table-success">
+                <tr>
+                    <th>Ticket ID</th>
+                    <th>Place</th>
+                    <th>Vehicle Type</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Duration (hrs)</th>
+                    <th>Price (MAD)</th>
+                    <th>Payment</th>
+                    <th>QR Code</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for res in history %}
+                <tr>
+                    <td>{{ res.ticket_id }}</td>
+                    <td>{{ res.place.number }}</td>
+                    <td>{{ res.get_vehicule_type_display }}</td>
+                    <td>{{ res.start_time|date:"Y-m-d H:i" }}</td>
+                    <td>{{ res.end_time|date:"Y-m-d H:i" }}</td>
+                    <td>{{ res.duration }}</td>
+                    <td>{{ res.price }}</td>
+                    <td>{{ res.get_payment_type_display }}</td>
+                    <td>
+                        {% if res.qr_code %}
+                        <img src="{{ res.qr_code.url }}" alt="QR Code" width="60">
+                        {% else %}
+                        N/A
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="alert alert-warning">You have no past reservations yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,178 @@
+{% extends 'client_app/base_client.html' %}
+
+{% block title %}About ParClick{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="jumbotron text-center my-5 hero-section">
+    <h1 class="display-4 fw-bold animated fadeInDown">About ParClick</h1>
+    <p class="lead animated fadeIn">Your smart solution for effortless parking management.</p>
+</div>
+
+<!-- About Summary -->
+<div class="container my-5">
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card glassmorphism-form text-center">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold">🔧 What We Do</h5>
+                    <p class="card-text">ParClick allows drivers to reserve, track, and manage parking sessions with
+                        ease, all through an intelligent web interface.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card glassmorphism-form text-center">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold">🎯 Our Mission</h5>
+                    <p class="card-text">To eliminate parking frustration by bringing transparency, reservation, and
+                        real-time availability to urban drivers.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card glassmorphism-form text-center">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold">💡 Our Innovation</h5>
+                    <p class="card-text">Live updates, QR-ticketing, PDF downloads, and dynamic billing — all powered by
+                        Django and modern web tech.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Key Features Section -->
+<section class="features-section">
+    <div class="container text-center">
+        <h2 class="section-title">Why ParClick?</h2>
+        <p class="section-subtitle">A modern, intuitive parking experience you can rely on.</p>
+        <div class="row mt-4 g-4">
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-parking"></i></div>
+                    <h4>Real-Time Spot Tracking</h4>
+                    <p>All available parking places are updated instantly — reserve your space before you even arrive.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-receipt"></i></div>
+                    <h4>Smart Reservations</h4>
+                    <p>Pick your start time, vehicle type, and duration — ParClick does the rest, including
+                        auto-calculated pricing.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-file-pdf"></i></div>
+                    <h4>QR & PDF Tickets</h4>
+                    <p>Instant ticket generation in both QR code & downloadable PDF format for hassle-free entry and
+                        proof.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Future Section (Optional) -->
+<div class="container my-5 text-center">
+    <h3 class="fw-bold">🔜 What’s Next?</h3>
+    <p class="text-muted">We’re working on mobile integration, AI-powered recommendations, and predictive space
+        allocation. Stay tuned!</p>
+</div>
+
+<!-- Styling -->
+<style>
+    body {
+        background-color: #ffffff;
+        /* White background */
+        color: #222938;
+        /* Primary dark text */
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .glassmorphism-form {
+        background: #f5f5f5;
+        border: 1px solid #e0e0e0;
+        border-radius: 12px;
+        padding: 25px;
+        transition: 0.3s ease-in-out;
+    }
+
+    .glassmorphism-form:hover {
+        background: #e9f8f3;
+        /* Light green hover effect */
+        transform: scale(1.02);
+        border-color: #13b298;
+    }
+
+    .features-section {
+        padding: 4rem 2rem;
+        background-color: #f8fdfc;
+        /* Very light green background */
+        border-radius: 14px;
+    }
+
+    .feature-card {
+        background: #ffffff;
+        border: 1px solid #cbd5ed;
+        padding: 20px;
+        border-radius: 10px;
+        transition: 0.3s ease-in-out;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .feature-card:hover {
+        background: #ebfffa;
+        /* light green shade */
+        transform: scale(1.05);
+        border-color: #13b298;
+    }
+
+    .feature-icon {
+        font-size: 40px;
+        color: #3f704d;
+        /* Your base green */
+        margin-bottom: 10px;
+    }
+
+    .section-title {
+        color: #13b298;
+        /* Primary text green */
+        font-size: 2rem;
+        margin-bottom: 10px;
+    }
+
+    .section-subtitle {
+        font-size: 1.2rem;
+        color: #2d3e52;
+    }
+
+    .hero-section {
+        background-color: #e3fff8;
+        padding: 3rem 1rem;
+        border-radius: 12px;
+    }
+
+    .hero-section h1 {
+        color: #3f704d;
+    }
+
+    .hero-section p {
+        color: #2d3e52;
+    }
+
+    h4,
+    h5,
+    h3 {
+        color: #3f704d;
+    }
+
+    .text-muted {
+        color: #6c757d !important;
+    }
+</style>
+
+{% endblock %}
